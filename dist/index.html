@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Weather App</title>
+</head>
+<body>
+
+    <div id="current">      
+        <span></span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    </div>
+
+    <div id="search-heading">
+        <h1>Weather App</h1>
+        <span>Using Openweather API</span>
+    </div>
+    
+    <div id="search-bar-container">
+        <label for="search-bar">City:</label>
+        <input type="text" id="search-bar" name="search-bar" value="Seattle" placeholder="Enter your city name">
+        <button id="search-btn">
+            <span class="material-icons">search</span>
+        </button>
+    </div>
+
+    <div id="forecast-container">
+        <div class="info-container">
+            <h2 id="location">Seattle, USA</h2>
+            <i id="weather-icon" class="owi owi-01d"></i>
+            <span id="temp" class="temp">65 F</span>
+            <span id="desc" class="desc">Cloudy</span>
+        </div>
+    </div>
+
+    <footer>
+        <img src="./png/github.png" alt="">
+    </footer>
+    <script src="index.js">
+    </script>
+</body>
+</html>
