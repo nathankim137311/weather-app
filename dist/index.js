@@ -1,6 +1,7 @@
 const searchBar = document.getElementById('search-bar');
 const searchBtn = document.getElementById('search-btn');
-const img = document.querySelector('#img-container img');
+const forecastContainer = document.getElementById('forecast-container');
+const key = config.MY_API_KEY; 
 
 // Enter key is pressed 
 searchBar.addEventListener('keydown', (e) => {
@@ -9,6 +10,7 @@ searchBar.addEventListener('keydown', (e) => {
         searchContainer.classList.add('move');
         const searchHeading = document.getElementById('search-heading');
         searchHeading.classList.add('fade');
+        forecastFade();
         (async () => {
             const dataArr = await getWeatherForecast(searchBar.value);
             weatherInfo(dataArr);
@@ -22,14 +24,18 @@ searchBtn.addEventListener('click', () => {
     searchContainer.classList.add('move');
     const searchHeading = document.getElementById('search-heading');
     searchHeading.classList.add('fade');
-    const forecastContainer = document.getElementById('forecast-container');
-    forecastContainer.classList.add('show');
+    forecastFade();
     (async () => {
         const dataArr = await getWeatherForecast(searchBar.value);
         console.log(dataArr);
         weatherInfo(dataArr);
     })();
 });
+
+// When forecast container is clicked 
+forecastContainer.addEventListener('click', (e) => {
+    console.log(e.target.parentElement);
+}); 
 
 // Get data from API return data
 async function getWeatherForecast(city) {
@@ -38,9 +44,9 @@ async function getWeatherForecast(city) {
     }
 
     try {
-        const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=23b924a71aa703b14e02ba5f0fa76477`, {mode: 'cors'});
+        const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${key}`, {mode: 'cors'});
         const data = await response.json();
-        const forecast = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=alerts,minutely&units=imperial&appid=23b924a71aa703b14e02ba5f0fa76477`)
+        const forecast = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=alerts,minutely&units=imperial&appid=${key}`)
         const forecastData = await forecast.json();
         return [data, forecastData];
     } catch(err) {
@@ -94,4 +100,11 @@ function formatUnix(data) {
     const dateObject = new Date(milliseconds);
     const readableFormat = dateObject.toLocaleString();
     return readableFormat;
+}
+
+function forecastFade() {
+    setTimeout(() => {
+        const forecastContainer = document.getElementById('forecast-container');
+        forecastContainer.classList.add('show');
+    }, 500);
 }

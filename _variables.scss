@@ -5,3 +5,17 @@ $blurple: #5865F2;
 $orange: #FF8D33;
 $yellow: #FDE02A;
 $blue: #1897F6;
+
+// Tweak these to change the style of the toggle
+$toggle-background-color-on: $blue;
+$toggle-background-color-off: $orange;
+$toggle-control-color: white;
+$toggle-width: 40px;
+$toggle-height: 20px;
+$toggle-gutter: 3px;
+$toggle-radius: 50%;
+$toggle-control-speed: .15s;
+$toggle-control-ease: ease-in;
+
+$toggle-radius: $toggle-height / 2;
+$toggle-control-size: $toggle-height - ($toggle-gutter * 2);
