@@ -97,7 +97,7 @@
 }
 
 #search-bar-container.move {
-    top: 10%;
+    top: 15%;
 }
 
 // Forecast container 
@@ -111,11 +111,12 @@
     width: fit-content;
     height: fit-content;
     padding: 20px;
-    //border: 1px $blurple solid;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     z-index: 5;
     background-color: $blue;
+    opacity: 0;
+    transition: all 2s ease;
     .info-container {
         display: flex;
         flex-direction: column;
@@ -127,6 +128,8 @@
         }
         i {
             margin: 20px 0px 20px 0px;
+            font-size: 9rem;
+            color: $yellow;
         }
         .temp {
             font-size: 3rem;
@@ -138,7 +141,10 @@
     }
 }
 
-#weather-icon {
-    font-size: 9rem;
-    color: $yellow;
+#forecast-container:hover {
+    cursor: pointer;
+}
+
+#forecast-container.show {
+    opacity: 1;
 }
