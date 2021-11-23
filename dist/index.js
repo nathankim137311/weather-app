@@ -51,8 +51,9 @@ searchBtn.addEventListener('click', () => {
 });
 
 // When forecast container is clicked 
-forecastContainer.addEventListener('click', (e) => {
-    console.log(e.target.parentElement);
+forecastContainer.addEventListener('click', () => {
+    const moreInfo = document.getElementById('more-info-container');
+    moreInfo.classList.toggle('show'); 
 }); 
 
 // Get data from API return data
@@ -111,6 +112,10 @@ function currentTime(data) {
 function currentLocation(city, country) {
     const location = document.getElementById('location');
     location.textContent = `${city}, ${country}`;
+}
+
+function currentHumidity() {
+
 }
 
 // Format to human-readable time 

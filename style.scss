@@ -150,6 +150,23 @@
     opacity: 1;
 }
 
+#more-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding-left: 50px;
+    h2 {
+        margin: 0px;
+        color: white;
+    }
+    ul {
+        padding: 0px;
+        list-style: none;
+        color: white;
+    }
+}
+
 // label for toggle switch 
 #label-toggle {
     position: absolute;
