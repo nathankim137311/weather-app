@@ -1,7 +1,25 @@
 const searchBar = document.getElementById('search-bar');
 const searchBtn = document.getElementById('search-btn');
 const forecastContainer = document.getElementById('forecast-container');
+const toggleSwitch = document.getElementById('toggle-switch');
 const key = config.MY_API_KEY; 
+
+// Toggle fahrenheit to celsius
+toggleSwitch.addEventListener('click', (e) => {
+    if (e.target.checked === false) {
+        (async () => {
+            const dataArr = await getWeatherForecast(searchBar.value);
+            currentTemp(dataArr[1].current.temp, '&#8457');
+        })();
+    } else if (e.target.checked === true) {
+        (async () => {
+            const dataArr = await getWeatherForecast(searchBar.value);
+            let degrees = dataArr[1].current.temp;
+            degrees = convertFahrenheit(degrees);
+            currentTemp(degrees, '&#8451');
+        })();
+    }
+});
 
 // Enter key is pressed 
 searchBar.addEventListener('keydown', (e) => {
@@ -55,18 +73,19 @@ async function getWeatherForecast(city) {
 
 }
 
+// Adds data to forecast container 
 function weatherInfo(dataArr) {
     currentTime(dataArr[1]);
-    currentTemp(dataArr[1].current.temp);
+    currentTemp(dataArr[1].current.temp, '&#8457');
     currentDesc(dataArr[1].current.weather[0].description);
     createIcon(dataArr[1].current.weather[0].icon); 
     currentLocation(dataArr[0].name, dataArr[0].sys.country);
 }
 
-function currentTemp(data) {
+function currentTemp(data, unit) {
     data = Math.round(data); 
     const temp = document.getElementById('temp');
-    temp.innerHTML = data + '<span>&#8457;</span>'; 
+    temp.innerHTML = data + `<span>${unit}</span>`; 
 }
 
 function currentDesc(data) {
@@ -79,7 +98,7 @@ function createIcon(data) {
     weatherIcon.className = `owi owi-${data}`;
 }
 
-// set span to current time 
+// Set span to current time 
 function currentTime(data) {
     const current = formatUnix(data);
     const div = document.getElementById('current');
@@ -88,12 +107,13 @@ function currentTime(data) {
     span.textContent = current;
 }
 
+// Set heading to current location 
 function currentLocation(city, country) {
     const location = document.getElementById('location');
     location.textContent = `${city}, ${country}`;
 }
 
-// format to human-readable time 
+// Format to human-readable time 
 function formatUnix(data) {
     const unixTimestamp = data.current.dt;
     const milliseconds = unixTimestamp * 1000;
@@ -102,9 +122,16 @@ function formatUnix(data) {
     return readableFormat;
 }
 
+// Fade animation for forecast container 
 function forecastFade() {
     setTimeout(() => {
         const forecastContainer = document.getElementById('forecast-container');
         forecastContainer.classList.add('show');
     }, 500);
+}
+
+// Converts fahrenheit to celsius
+function convertFahrenheit(num) {
+    const celsius = ((num - 32) * 5/9);
+    return celsius
 }
