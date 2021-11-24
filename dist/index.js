@@ -1,6 +1,6 @@
 const searchBar = document.getElementById('search-bar');
 const searchBtn = document.getElementById('search-btn');
-const forecastContainer = document.getElementById('forecast-container');
+const forecastContainer = document.querySelector('.forecast-container');
 const toggleSwitch = document.getElementById('toggle-switch');
 const key = config.MY_API_KEY; 
 
@@ -42,6 +42,7 @@ searchBtn.addEventListener('click', () => {
     searchContainer.classList.add('move');
     const searchHeading = document.getElementById('search-heading');
     searchHeading.classList.add('fade');
+    forecastContainer.classList.add('show');
     forecastFade();
     (async () => {
         const dataArr = await getWeatherForecast(searchBar.value);
@@ -50,11 +51,16 @@ searchBtn.addEventListener('click', () => {
     })();
 });
 
+const card = document.querySelector('.forecast-card');
+// Flip card animation 
+card.addEventListener( 'click', () => {
+  card.classList.toggle('flip');
+});
+
 // When forecast container is clicked 
-forecastContainer.addEventListener('click', () => {
-    const moreInfo = document.getElementById('more-info-container');
-    moreInfo.classList.toggle('show'); 
-}); 
+// forecastContainer.addEventListener('click', () => {
+//     forecastContainer.clas
+// }); 
 
 // Get data from API return data
 async function getWeatherForecast(city) {
@@ -130,7 +136,7 @@ function formatUnix(data) {
 // Fade animation for forecast container 
 function forecastFade() {
     setTimeout(() => {
-        const forecastContainer = document.getElementById('forecast-container');
+        const forecastContainer = document.getElementById('forecast-card');
         forecastContainer.classList.add('show');
     }, 500);
 }

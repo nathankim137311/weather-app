@@ -101,73 +101,102 @@
     top: 15%;
 }
 
-// Forecast container 
-#forecast-container {
+// forecast card // 
+.forecast-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(-50% - .5px));
+  width: 250px;
+  height: 375px;
+  margin: 40px 0;
+  z-index: 5;
+  perspective: 500px;
+  opacity: 0;
+  transition: all 1.25s ease;
+}
+  
+.forecast-card {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+  
+.forecast-card.flip {
+  transform: rotateY(180deg);
+}
+
+// Styling for both faces 
+.forecast-card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+// Front face of card 
+.forecast-card-front {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $darkblue;
+  font-size: 1rem;
+  h2 {
+    margin: 0px;
+  }
+  i {
+    margin: 20px 0px 20px 0px;
+    font-size: 9rem;
+    color: $yellow;
+  }
+  .temp {
+    font-size: 3rem;
+  }
+  .desc {
+    margin-top: 10px;
+    font-size: 1.5rem;
+  }
+}
+
+// Back face of card 
+.forecast-card-back {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  font-size: 1rem;
+  background-color: $darkblue;
+  transform: rotateY(180deg);
+  h2 {
     display: flex;
+    align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: fit-content;
-    height: fit-content;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    z-index: 5;
-    background-color: $blue;
-    opacity: 0;
-    transition: all 2s ease;
-    .info-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: white;
-        height: fit-content;
-        h2 {
-            margin: 0px;
-        }
-        i {
-            margin: 20px 0px 20px 0px;
-            font-size: 9rem;
-            color: $yellow;
-        }
-        .temp {
-            font-size: 3rem;
-        }
-        .desc {
-            margin-top: 10px;
-            font-size: 1.5rem;
-        }
-    }
-}
-
-#forecast-container:hover {
-    cursor: pointer;
-}
-
-#forecast-container.show {
-    opacity: 1;
-}
-
-#more-info-container {
+    grid-column: span 2;
+    margin: 0;
+  }
+  .info {
     display: flex;
     flex-direction: column;
-    justify-content: start;
     align-items: center;
-    padding-left: 50px;
-    h2 {
-        margin: 0px;
-        color: white;
-    }
-    ul {
-        padding: 0px;
-        list-style: none;
-        color: white;
-    }
+
+  }
+  .info h3 {
+    font-size: 1rem;
+  }
 }
 
-// label for toggle switch 
+// Show animation 
+.forecast-container.show {
+  opacity: 1;
+}
+
+// label for toggle switch // 
 #label-toggle {
     position: absolute;
     top: 8px;
