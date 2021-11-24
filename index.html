@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Weather App</title>
+</head>
+<body>
+    <div class="background-img">
+        <img src="#">
+    </div>
+
+    <p id="label-toggle">
+        Toggle <span>&#8457;</span> / <span>&#8451;</span> 
+    </p>
+    <label id="toggle-switch" class="toggle-control">
+        <input type="checkbox">
+        <span class="control"></span>
+    </label>
+
+    <div id="current">      
+        <span></span>
+    </div>
+
+    <div id="search-heading">
+        <h1>Weather App</h1>
+        <span>Using Openweather API</span>
+    </div>
+    
+    <div id="search-bar-container">
+        <label for="search-bar">City:</label>
+        <input type="text" id="search-bar" name="search-bar" value="Seattle" placeholder="Enter your city name">
+        <button id="search-btn">
+            <span class="material-icons">search</span>
+        </button>
+    </div>
+
+    <div class="forecast-container forecast-container-card">
+        <div class="forecast-card">
+          <div class="forecast-card-face forecast-card-front">
+            <h2 id="location"></h2>
+            <i id="weather-icon"></i>
+            <span id="temp" class="temp"></span>
+            <span id="desc" class="desc"></span>
+          </div>
+          <div class="forecast-card-face forecast-card-back">
+            <h2>Today</h2>
+            <div class="info">
+                <h3>Sunrise:</h3>
+                <span>4:00</span>
+            </div>
+            <div class="info">
+                <h3>Sunset:</h3>
+                <span>5:00</span>
+            </div>
+            <div class="info">
+                <h3>Humidity:</h3>
+                <span>30%</span>
+            </div>
+            <div class="info">
+                <h3>Pressure:</h3>
+                <span>1000mbp</span>
+            </div>
+            <div class="info">
+                <h3>Wind:</h3>
+                <span>30</span>
+            </div>
+            <div class="info">
+                <h3>Wind Deg:</h3>
+                <span>30</span>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <footer>
+        <img src="./png/github.png" alt="">
+    </footer>
+    <script type='text/javascript' src='config.js'></script>
+    <script src="index.js">
+    </script>
+</body>
+</html>
