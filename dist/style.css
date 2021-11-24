@@ -377,6 +377,7 @@ footer img {
 }
 
 .forecast-container {
+  display: none;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -388,9 +389,9 @@ footer img {
   z-index: 5;
   -webkit-perspective: 500px;
           perspective: 500px;
-  opacity: 0;
   -webkit-transition: all 1.25s ease;
   transition: all 1.25s ease;
+  opacity: 0;
 }
 
 .forecast-card {
@@ -503,6 +504,7 @@ footer img {
 }
 
 .forecast-container.show {
+  display: block;
   opacity: 1;
 }
 

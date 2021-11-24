@@ -42,7 +42,7 @@ searchBtn.addEventListener('click', () => {
     searchContainer.classList.add('move');
     const searchHeading = document.getElementById('search-heading');
     searchHeading.classList.add('fade');
-    forecastContainer.classList.add('show');
+    //forecastContainer.classList.add('show');
     forecastFade();
     (async () => {
         const dataArr = await getWeatherForecast(searchBar.value);
@@ -56,11 +56,6 @@ const card = document.querySelector('.forecast-card');
 card.addEventListener( 'click', () => {
   card.classList.toggle('flip');
 });
-
-// When forecast container is clicked 
-// forecastContainer.addEventListener('click', () => {
-//     forecastContainer.clas
-// }); 
 
 // Get data from API return data
 async function getWeatherForecast(city) {
@@ -87,6 +82,7 @@ function weatherInfo(dataArr) {
     currentDesc(dataArr[1].current.weather[0].description);
     createIcon(dataArr[1].current.weather[0].icon); 
     currentLocation(dataArr[0].name, dataArr[0].sys.country);
+    currentInfo(dataArr[1]);
 }
 
 function currentTemp(data, unit) {
@@ -107,7 +103,7 @@ function createIcon(data) {
 
 // Set span to current time 
 function currentTime(data) {
-    const current = formatUnix(data);
+    const current = formatUnix(data.current.dt);
     const div = document.getElementById('current');
     div.className = 'current move';
     const span = document.querySelector('#current span');
@@ -120,25 +116,46 @@ function currentLocation(city, country) {
     location.textContent = `${city}, ${country}`;
 }
 
-function currentHumidity() {
-
+function currentInfo(data) {
+    const sunrise = formatHour(data.current.sunrise);
+    const sunset = formatHour(data.current.sunset);
+    const dataArr = [
+        sunrise,
+        sunset,
+        data.current.humidity + '%',
+        `${data.current.pressure} hPa`,
+        `${data.current.wind_speed} m/s`,
+        data.current.wind_deg
+    ];
+    const infoArr = [...document.querySelectorAll('.info span')];
+    for (let i = 0; i < infoArr.length; i++) {
+        infoArr[i].textContent = dataArr[i];
+    }
 }
 
 // Format to human-readable time 
 function formatUnix(data) {
-    const unixTimestamp = data.current.dt;
+    const unixTimestamp = data;
     const milliseconds = unixTimestamp * 1000;
     const dateObject = new Date(milliseconds);
     const readableFormat = dateObject.toLocaleString();
     return readableFormat;
 }
 
+// Format unix to hours 
+function formatHour(data) {
+    const unixTimestamp = data;
+    const milliseconds = unixTimestamp * 1000;
+    const dateObject = new Date(milliseconds);
+    const readableFormat = dateObject.toLocaleString('en-US', {hour: 'numeric'});
+    return readableFormat;
+}
+
 // Fade animation for forecast container 
 function forecastFade() {
     setTimeout(() => {
-        const forecastContainer = document.getElementById('forecast-card');
         forecastContainer.classList.add('show');
-    }, 500);
+    }, 1000);
 }
 
 // Converts fahrenheit to celsius
