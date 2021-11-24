@@ -69,8 +69,8 @@ async function getWeatherForecast(city) {
 
     try {
         const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${key1}`, {mode: 'cors'});
-        response.header("Access-Control-Allow-Origin", "*");
-        response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        //response.header("Access-Control-Allow-Origin", "*");
+        //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const data = await response.json();
         const forecast = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=alerts,minutely&units=imperial&appid=${key1}`)
         const forecastData = await forecast.json();
