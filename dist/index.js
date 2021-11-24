@@ -2,7 +2,11 @@ const searchBar = document.getElementById('search-bar');
 const searchBtn = document.getElementById('search-btn');
 const forecastContainer = document.querySelector('.forecast-container');
 const toggleSwitch = document.getElementById('toggle-switch');
-const key = config.MY_API_KEY; 
+const backgroundImg = document.querySelector('.background-img img');
+const key1 = config.WEATHER_KEY; 
+const key2 = config.UNSPLASH_KEY;
+
+backgroundImg.addEventListener('load', fadeImg);
 
 // Toggle fahrenheit to celsius
 toggleSwitch.addEventListener('click', (e) => {
@@ -31,6 +35,7 @@ searchBar.addEventListener('keydown', (e) => {
         forecastFade();
         (async () => {
             const dataArr = await getWeatherForecast(searchBar.value);
+            await getCityPhoto(searchBar.value);
             weatherInfo(dataArr);
         })();
     }
@@ -42,11 +47,10 @@ searchBtn.addEventListener('click', () => {
     searchContainer.classList.add('move');
     const searchHeading = document.getElementById('search-heading');
     searchHeading.classList.add('fade');
-    //forecastContainer.classList.add('show');
     forecastFade();
     (async () => {
         const dataArr = await getWeatherForecast(searchBar.value);
-        console.log(dataArr);
+        await getCityPhoto(searchBar.value);
         weatherInfo(dataArr);
     })();
 });
@@ -64,15 +68,30 @@ async function getWeatherForecast(city) {
     }
 
     try {
-        const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${key}`, {mode: 'cors'});
+        const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${key1}`, {mode: 'cors'});
         const data = await response.json();
-        const forecast = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=alerts,minutely&units=imperial&appid=${key}`)
+        const forecast = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=alerts,minutely&units=imperial&appid=${key1}`)
         const forecastData = await forecast.json();
         return [data, forecastData];
     } catch(err) {
         console.log(err);
     }
 
+}
+
+// Get random photo from Unsplash 
+async function getCityPhoto(city) {
+    if (city === undefined) {
+        city = 'Seattle';
+    }
+    const img = document.querySelector('.background-img img');
+    try {
+        const response = await fetch(`https://api.unsplash.com/photos/random?query=${city}&orientation=landscape&count=1&client_id=${key2}`, {mode: 'cors'});
+        const data = await response.json();
+        img.src = data[0].urls.regular;
+    } catch(err) {
+        console.log(err);
+    }
 }
 
 // Adds data to forecast container 
@@ -162,4 +181,9 @@ function forecastFade() {
 function convertFahrenheit(num) {
     const celsius = ((num - 32) * 5/9);
     return celsius
+}
+
+function fadeImg() {
+    this.style.transition = 'opacity 1s';
+    this.style.opacity = '1';
 }

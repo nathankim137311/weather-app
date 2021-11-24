@@ -4,6 +4,17 @@
 @import "header"; 
 @import "footer";
 
+.background-img {
+  opacity: 0.4;
+  height: 100%;
+  width: 100%;
+  img {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+  }
+}
+
 #current {
     position: absolute;
     top: -45px;
@@ -136,10 +147,11 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   color: white;
   padding: 20px;
   border-radius: 5px;
+  background-color: transparent;
 }
 
 // Front face of card 
@@ -147,7 +159,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: $darkblue;
+  //background-color: $darkblue;
   font-size: 1rem;
   h2 {
     margin: 0px;
