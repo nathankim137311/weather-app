@@ -458,8 +458,8 @@ footer img {
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
-  -ms-grid-rows: (1fr)[4];
-      grid-template-rows: repeat(4, 1fr);
+  -ms-grid-rows: 1fr, 1fr, 1fr, 1fr;
+      grid-template-rows: 1fr, 1fr, 1fr, 1fr;
   font-size: 1rem;
   background-color: #003049;
   -webkit-transform: rotateY(180deg);
