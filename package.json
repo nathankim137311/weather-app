@@ -2,14 +2,17 @@
   "name": "weather-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "homepage": "https:nathankim137311.github.io/weather-app",
   "dependencies": {
+    "gh-pages": "^3.2.3",
     "open-weather-icons": "^0.0.8"
   }
 }
