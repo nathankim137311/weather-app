@@ -251,7 +251,6 @@ footer img {
   top: -45px;
   left: 0px;
   color: white;
-  background-color: black;
   width: 200px;
   height: 45px;
   padding: 10px;
@@ -326,27 +325,10 @@ footer img {
   z-index: 2;
 }
 
-#search-bar-container label {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 1rem;
-  color: white;
-  width: 75px;
-  height: -webkit-min-content;
-  height: -moz-min-content;
-  height: min-content;
-  padding: 10px;
+#search-bar-container .city {
+  display: block;
+  height: 24px;
+  margin: 10px;
 }
 
 #search-bar-container input {
@@ -356,6 +338,7 @@ footer img {
   width: 450px;
   height: 40px;
   font-size: 1rem;
+  padding: 0;
 }
 
 #search-bar-container input:focus {
@@ -391,16 +374,16 @@ footer img {
 .forecast-container {
   display: none;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(calc(-50% - .5px));
-          transform: translateX(-50%) translateY(calc(-50% - .5px));
-  width: 250px;
-  height: 375px;
-  margin: 40px 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  height: 440px;
+  margin: auto;
   z-index: 5;
-  -webkit-perspective: 500px;
-          perspective: 500px;
+  -webkit-perspective: 600px;
+          perspective: 600px;
   -webkit-transition: all 1.25s ease;
   transition: all 1.25s ease;
   opacity: 0;
@@ -451,17 +434,18 @@ footer img {
 }
 
 .forecast-card-front h2 {
-  margin: 0px;
+  margin: 10px 0px 0px 0px;
+  font-size: 2rem;
 }
 
 .forecast-card-front i {
-  margin: 20px 0px 20px 0px;
-  font-size: 9rem;
+  margin: 30px 0px 30px 0px;
+  font-size: 9.5rem;
   color: #FDE02A;
 }
 
 .forecast-card-front .temp {
-  font-size: 3rem;
+  font-size: 3.5rem;
 }
 
 .forecast-card-front .desc {
