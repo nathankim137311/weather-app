@@ -1,12 +1,14 @@
+// Global Variables // 
+
 const searchBar = document.getElementById('search-bar');
 const searchBtn = document.getElementById('search-btn');
-const forecastContainer = document.querySelector('.forecast-container');
 const toggleSwitch = document.getElementById('toggle-switch');
 const backgroundImg = document.querySelector('.background-img img');
 const card = document.querySelector('.forecast-card');
 const key1 = config.WEATHER_KEY; 
 const key2 = config.UNSPLASH_KEY;
 
+// When image loads add animation
 backgroundImg.addEventListener('load', fadeImg);
 
 // Toggle fahrenheit to celsius
@@ -29,11 +31,7 @@ toggleSwitch.addEventListener('click', (e) => {
 // Enter key is pressed 
 searchBar.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-        const searchContainer = document.getElementById('search-bar-container');
-        searchContainer.classList.add('move');
-        const searchHeading = document.getElementById('search-heading');
-        searchHeading.classList.add('fade');
-        backgroundImg.style.opacity = '0.1';
+        addAnimation();
         forecastFade();
         (async () => {
             const dataArr = await getWeatherForecast(searchBar.value);
@@ -45,11 +43,7 @@ searchBar.addEventListener('keydown', (e) => {
 
 // When button is clicked 
 searchBtn.addEventListener('click', () => {
-    const searchContainer = document.getElementById('search-bar-container');
-    searchContainer.classList.add('move');
-    const searchHeading = document.getElementById('search-heading');
-    searchHeading.classList.add('fade');
-    backgroundImg.style.opacity = '0.1';
+    addAnimation();
     forecastFade();
     (async () => {
         const dataArr = await getWeatherForecast(searchBar.value);
@@ -57,6 +51,14 @@ searchBtn.addEventListener('click', () => {
         weatherInfo(dataArr);
     })();
 });
+
+function addAnimation() {
+    const searchContainer = document.getElementById('search-bar-container');
+    searchContainer.classList.add('move');
+    const searchHeading = document.getElementById('search-heading');
+    searchHeading.classList.add('fade');
+    backgroundImg.style.opacity = '0.1';
+}
 
 // Flip card animation 
 card.addEventListener( 'click', () => {
@@ -174,6 +176,7 @@ function formatHour(data) {
 // Fade animation for forecast container 
 function forecastFade() {
     setTimeout(() => {
+        const forecastContainer = document.querySelector('.forecast-container');
         forecastContainer.classList.add('show');
     }, 1000);
 }
