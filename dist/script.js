@@ -8,25 +8,7 @@ const card = document.querySelector('.forecast-card');
 const key1 = config.WEATHER_KEY; 
 const key2 = config.UNSPLASH_KEY;
 
-// When image loads add animation
-backgroundImg.addEventListener('load', fadeImg);
-
-// Toggle fahrenheit to celsius
-toggleSwitch.addEventListener('click', (e) => {
-    if (e.target.checked === false) {
-        (async () => {
-            const dataArr = await getWeatherForecast(searchBar.value);
-            currentTemp(dataArr[1].current.temp, '&#8457');
-        })();
-    } else if (e.target.checked === true) {
-        (async () => {
-            const dataArr = await getWeatherForecast(searchBar.value);
-            let degrees = dataArr[1].current.temp;
-            degrees = convertFahrenheit(degrees);
-            currentTemp(degrees, '&#8451');
-        })();
-    }
-});
+// Event Listeners // 
 
 // Enter key is pressed 
 searchBar.addEventListener('keydown', (e) => {
@@ -52,6 +34,34 @@ searchBtn.addEventListener('click', () => {
     })();
 });
 
+// Toggle fahrenheit to celsius
+toggleSwitch.addEventListener('click', (e) => {
+    if (e.target.checked === false) {
+        (async () => {
+            const dataArr = await getWeatherForecast(searchBar.value);
+            currentTemp(dataArr[1].current.temp, '&#8457');
+        })();
+    } else if (e.target.checked === true) {
+        (async () => {
+            const dataArr = await getWeatherForecast(searchBar.value);
+            let degrees = dataArr[1].current.temp;
+            degrees = convertFahrenheit(degrees);
+            currentTemp(degrees, '&#8451');
+        })();
+    }
+});
+
+// When image loads add animation
+backgroundImg.addEventListener('load', fadeImg);
+
+// Flip card animation 
+card.addEventListener( 'click', () => {
+    card.classList.toggle('flip');
+});
+
+// Utility functions //
+
+// Animates elements 
 function addAnimation() {
     const searchContainer = document.getElementById('search-bar-container');
     searchContainer.classList.add('move');
@@ -59,11 +69,6 @@ function addAnimation() {
     searchHeading.classList.add('fade');
     backgroundImg.style.opacity = '0.1';
 }
-
-// Flip card animation 
-card.addEventListener( 'click', () => {
-  card.classList.toggle('flip');
-});
 
 // Get data from API return data
 async function getWeatherForecast(city) {
