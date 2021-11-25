@@ -3,6 +3,7 @@ const searchBtn = document.getElementById('search-btn');
 const forecastContainer = document.querySelector('.forecast-container');
 const toggleSwitch = document.getElementById('toggle-switch');
 const backgroundImg = document.querySelector('.background-img img');
+const card = document.querySelector('.forecast-card');
 const key1 = config.WEATHER_KEY; 
 const key2 = config.UNSPLASH_KEY;
 
@@ -32,6 +33,7 @@ searchBar.addEventListener('keydown', (e) => {
         searchContainer.classList.add('move');
         const searchHeading = document.getElementById('search-heading');
         searchHeading.classList.add('fade');
+        backgroundImg.style.opacity = '0.1';
         forecastFade();
         (async () => {
             const dataArr = await getWeatherForecast(searchBar.value);
@@ -47,6 +49,7 @@ searchBtn.addEventListener('click', () => {
     searchContainer.classList.add('move');
     const searchHeading = document.getElementById('search-heading');
     searchHeading.classList.add('fade');
+    backgroundImg.style.opacity = '0.1';
     forecastFade();
     (async () => {
         const dataArr = await getWeatherForecast(searchBar.value);
@@ -55,7 +58,6 @@ searchBtn.addEventListener('click', () => {
     })();
 });
 
-const card = document.querySelector('.forecast-card');
 // Flip card animation 
 card.addEventListener( 'click', () => {
   card.classList.toggle('flip');
@@ -84,11 +86,10 @@ async function getCityPhoto(city) {
     if (city === undefined) {
         city = 'Seattle';
     }
-    const img = document.querySelector('.background-img img');
     try {
         const response = await fetch(`https://api.unsplash.com/photos/random?query=${city}&orientation=landscape&count=1&client_id=${key2}`, {mode: 'cors'});
         const data = await response.json();
-        img.src = data[0].urls.regular;
+        backgroundImg.src = data[0].urls.regular;
     } catch(err) {
         console.log(err);
     }
