@@ -1,12 +1,38 @@
+// Global Variables // 
+
 const searchBar = document.getElementById('search-bar');
 const searchBtn = document.getElementById('search-btn');
-const forecastContainer = document.querySelector('.forecast-container');
 const toggleSwitch = document.getElementById('toggle-switch');
 const backgroundImg = document.querySelector('.background-img img');
+const card = document.querySelector('.forecast-card');
 const key1 = config.WEATHER_KEY; 
 const key2 = config.UNSPLASH_KEY;
 
-backgroundImg.addEventListener('load', fadeImg);
+// Event Listeners // 
+
+// Enter key is pressed 
+searchBar.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        addAnimation();
+        forecastFade();
+        (async () => {
+            const dataArr = await getWeatherForecast(searchBar.value);
+            await getCityPhoto(searchBar.value);
+            weatherInfo(dataArr);
+        })();
+    }
+});
+
+// When button is clicked 
+searchBtn.addEventListener('click', () => {
+    addAnimation();
+    forecastFade();
+    (async () => {
+        const dataArr = await getWeatherForecast(searchBar.value);
+        await getCityPhoto(searchBar.value);
+        weatherInfo(dataArr);
+    })();
+});
 
 // Toggle fahrenheit to celsius
 toggleSwitch.addEventListener('click', (e) => {
@@ -25,41 +51,24 @@ toggleSwitch.addEventListener('click', (e) => {
     }
 });
 
-// Enter key is pressed 
-searchBar.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        const searchContainer = document.getElementById('search-bar-container');
-        searchContainer.classList.add('move');
-        const searchHeading = document.getElementById('search-heading');
-        searchHeading.classList.add('fade');
-        forecastFade();
-        (async () => {
-            const dataArr = await getWeatherForecast(searchBar.value);
-            await getCityPhoto(searchBar.value);
-            weatherInfo(dataArr);
-        })();
-    }
+// When image loads add animation
+backgroundImg.addEventListener('load', fadeImg);
+
+// Flip card animation 
+card.addEventListener( 'click', () => {
+    card.classList.toggle('flip');
 });
 
-// When button is clicked 
-searchBtn.addEventListener('click', () => {
+// Utility functions //
+
+// Animates elements 
+function addAnimation() {
     const searchContainer = document.getElementById('search-bar-container');
     searchContainer.classList.add('move');
     const searchHeading = document.getElementById('search-heading');
     searchHeading.classList.add('fade');
-    forecastFade();
-    (async () => {
-        const dataArr = await getWeatherForecast(searchBar.value);
-        await getCityPhoto(searchBar.value);
-        weatherInfo(dataArr);
-    })();
-});
-
-const card = document.querySelector('.forecast-card');
-// Flip card animation 
-card.addEventListener( 'click', () => {
-  card.classList.toggle('flip');
-});
+    backgroundImg.style.opacity = '0.1';
+}
 
 // Get data from API return data
 async function getWeatherForecast(city) {
@@ -69,8 +78,6 @@ async function getWeatherForecast(city) {
 
     try {
         const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${key1}`, {mode: 'cors'});
-        //response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        //response.header("Access-Control-Allow-Origin", "*");
         const data = await response.json();
         const forecast = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=alerts,minutely&units=imperial&appid=${key1}`)
         const forecastData = await forecast.json();
@@ -86,11 +93,10 @@ async function getCityPhoto(city) {
     if (city === undefined) {
         city = 'Seattle';
     }
-    const img = document.querySelector('.background-img img');
     try {
         const response = await fetch(`https://api.unsplash.com/photos/random?query=${city}&orientation=landscape&count=1&client_id=${key2}`, {mode: 'cors'});
         const data = await response.json();
-        img.src = data[0].urls.regular;
+        backgroundImg.src = data[0].urls.regular;
     } catch(err) {
         console.log(err);
     }
@@ -175,6 +181,7 @@ function formatHour(data) {
 // Fade animation for forecast container 
 function forecastFade() {
     setTimeout(() => {
+        const forecastContainer = document.querySelector('.forecast-container');
         forecastContainer.classList.add('show');
     }, 1000);
 }
